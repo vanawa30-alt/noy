@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ผลิตภัณฑ์ลดความอยากบุหรี่จากธรรมชาติ</title>
+<meta name="description" content="ชาชงสมุนไพรลดความอยากบุหรี่ จากธรรมชาติ ปลอดภัย ดื่มง่าย">
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+<style>
+:root{
+  --blue-main:#8ecae6;
+  --blue-soft:#caf0f8;
+  --blue-deep:#219ebc;
+  --accent:#90dbf4;
+  --text:#2b2d42;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Noto Sans Thai',sans-serif;
+  background:linear-gradient(#f0f9ff,#e0f2fe);
+  color:var(--text);
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#caf0f8,#8ecae6);
+  padding:80px 20px 100px;
+  text-align:center;
+  position:relative;
+}
+header h1{font-size:42px;margin:0;color:#034078}
+header p{font-size:18px;margin-top:12px}
+
+header::after{
+  content:'';
+  position:absolute;
+  bottom:-1px;left:0;
+  width:100%;height:90px;
+  background:url("data:image/svg+xml;utf8,<svg viewBox='0 0 1440 90' xmlns='http://www.w3.org/2000/svg'><path fill='%23e0f2fe' d='M0,40 C240,80 480,0 720,20 960,40 1200,80 1440,40 L1440,90 L0,90 Z'/></svg>");
+}
+
+/* CONTAINER */
+.container{max-width:1100px;margin:auto;padding:60px 20px}
+
+/* PRODUCT */
+.product{
+  display:flex;
+  gap:30px;
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(14px);
+  border-radius:30px;
+  padding:36px;
+  box-shadow:0 30px 60px rgba(0,0,0,.08);
+  animation:fadeUp .8s ease;
+}
+.product img{width:320px;border-radius:22px}
+.product-info h2{margin-top:0;font-size:32px;color:var(--blue-deep)}
+.price{font-size:34px;color:#ef4444;margin:16px 0}
+
+/* BUTTON */
+.button{
+  display:inline-block;
+  background:linear-gradient(135deg,#48cae4,#219ebc);
+  color:#fff;
+  padding:14px 30px;
+  border-radius:40px;
+  text-decoration:none;
+  transition:.3s ease;
+}
+.button:hover{
+  transform:translateY(-4px) scale(1.05);
+  box-shadow:0 14px 30px rgba(33,158,188,.4);
+}
+.button.call{background:linear-gradient(135deg,#86efac,#22c55e)}
+
+/* RECOMMEND */
+.recommend{margin-top:100px}
+.recommend h2{text-align:center;font-size:34px;color:var(--blue-deep)}
+.recommend-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:24px;
+  margin-top:40px;
+}
+.recommend-card{
+  background:rgba(255,255,255,.85);
+  border-radius:26px;
+  padding:30px;
+  text-align:center;
+  box-shadow:0 16px 35px rgba(0,0,0,.06);
+  transition:.3s ease;
+}
+.recommend-card:hover{transform:translateY(-6px)}
+.recommend-card span{font-size:42px;display:block;margin-bottom:12px}
+
+/* DISCLAIMER */
+.disclaimer{
+  margin-top:50px;
+  background:#f0f9ff;
+  border-left:6px solid var(--blue-deep);
+  padding:20px;
+  border-radius:14px;
+  font-size:14px;
+}
+
+/* FOOTER */
+footer{
+  background:linear-gradient(135deg,#8ecae6,#219ebc);
+  color:#fff;
+  text-align:center;
+  padding:28px;
+  margin-top:100px;
+}
+
+/* FLOAT */
+.float{
+  position:fixed;
+  bottom:24px;
+  width:64px;height:64px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:9999;
+  transition:.25s;
+}
+.float:hover{transform:scale(1.12)}
+.line-float{right:168px;background:#7dd3fc}
+.call-float{right:96px;background:#86efac}
+.gpt-float{right:24px;background:#8ecae6}
+.float img{width:34px}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:9998;
+}
+.card{
+  position:absolute;
+  bottom:100px;
+  background:#fff;
+  border-radius:26px;
+  padding:28px;
+  width:340px;
+  box-shadow:0 30px 60px rgba(0,0,0,.3);
+}
+.line-card{right:168px}
+.call-card{right:96px;text-align:center}
+.gpt-card{right:24px}
+.close{
+  position:absolute;
+  top:14px;right:18px;
+  font-size:22px;
+  cursor:pointer;
+  color:#999;
+}
+
+/* GPT CHAT */
+.gpt-messages{
+  height:220px;
+  overflow-y:auto;
+  background:#f8fafc;
+  border-radius:14px;
+  padding:12px;
+  margin:12px 0;
+  font-size:14px;
+}
+.gpt-message{
+  margin-bottom:8px;
+  padding:8px 12px;
+  border-radius:14px;
+  max-width:85%;
+}
+.gpt-message.user{background:#bae6fd;margin-left:auto}
+.gpt-message.bot{background:#e5e7eb}
+.gpt-input-area{display:flex;gap:8px}
+.gpt-input{
+  flex:1;
+  padding:10px 14px;
+  border-radius:20px;
+  border:1px solid #cbd5e1;
+}
+.gpt-send{
+  background:#219ebc;
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:none}
+}
+@media(max-width:768px){
+  .product{flex-direction:column;align-items:center;text-align:center}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>ผลิตภัณฑ์ลดความอยากบุหรี่จากธรรมชาติ</h1>
+  <p>🌿 อ่อนโยน ปลอดภัย ดื่มง่าย ดื่มได้ทุกวัน</p>
+</header>
+
+<div class="container">
+  <div class="product">
+    <img src="2.jpg" alt="ชาชงสมุนไพรลดบุหรี่">
+    <div class="product-info">
+      <h2>ชาชงสมุนไพรลดความอยากบุหรี่</h2>
+      <p>☕ ดื่มง่าย กลิ่นหอมสมุนไพร ช่วยลดความอยากบุหรี่</p>
+      <div class="price">🎁 แจกฟรี (จำนวนจำกัด)</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a class="button call" href="tel:"0883559364">📞 โทรปรึกษา</a>   
+      </div>
+    </div>
+  </div>
+
+  <div class="recommend">
+    <h2>✨ คำแนะนำ</h2>
+    <div class="recommend-grid">
+      <div class="recommend-card"><span>☕</span><h3>วิธีใช้</h3><p>ดื่มวันละ 1 ซอง หลังอาหารเช้า</p></div>
+      <div class="recommend-card"><span>🌿</span><h3>สมุนไพร</h3><p>หญ้าดอกขาว • หญ้าหวาน • ใบเตย</p></div>
+      <div class="recommend-card"><span>📦</span><h3>การเก็บ</h3><p>เก็บในที่แห้ง หลีกเลี่ยงความชื้น</p></div>
+      <div class="recommend-card"><span>🚫</span><h3>ข้อควรระวัง</h3><p>สตรีมีครรภ์ และผู้ป่วยโรคหัวใจ/ไต ควรหลีกเลี่ยง</p></div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ ผลลัพธ์อาจแตกต่างกันในแต่ละบุคคล  
+    ผลิตภัณฑ์นี้ไม่ใช่ยา และไม่ใช้แทนการรักษาทางการแพทย์
+  </div>
+</div>
+
+<footer>ppw punshar | ผลิตภัณฑ์ลดความอยากบุหรี่จากธรรมชาติ 🌿</footer>
+
+<!-- FLOAT -->
+<div class="float line-float">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg">
+</div>
+<div class="float call-float">
+  <img src="https://cdn-icons-png.flaticon.com/512/15/15874.png">
+</div>
+<div class="float gpt-float">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg">
+</div>
+
+<!-- LINE MODAL -->
+<div class="modal line-modal">
+  <div class="card line-card">
+    <span class="close">×</span>
+    <h3>💚 ติดต่อ LINE</h3>
+    <a class="button" href="https://line.me/ti/p/nXDCTkcUvQ" target="_blank">
+      แอดไลน์เพื่อสอบถาม
+    </a>
+  </div>
+</div>
+
+<!-- CALL MODAL -->
+<div class="modal call-modal">
+  <div class="card call-card">
+    <span class="close">×</span>
+    <h3>📞 โทรปรึกษา</h3>
+    <p><strong>088 355 9364</strong></p>
+    <a class="button call" href="tel:0883559364">โทรทันที</a>
+  </div>
+</div>
+
+<!-- GPT MODAL -->
+<div class="modal gpt-modal">
+  <div class="card gpt-card">
+    <span class="close">×</span>
+    <h3>💬 แชทสอบถาม</h3>
+     <h4>เป็นการตอบคำถามเบื่องต้น ไม่ใช่คำวินิจฉัยจากแพทย์😊</h4>
+    <div class="gpt-messages"></div>
+    <div class="gpt-input-area">
+      <input class="gpt-input" placeholder="พิมพ์คำถามของคุณ...">
+      <button class="gpt-send">ส่ง</button>
+    </div>
+  </div>
+</div>
+
+<script>
+$(function(){
+
+$('.line-float').click(()=>$('.line-modal').fadeIn());
+$('.call-float').click(()=>$('.call-modal').fadeIn());
+$('.gpt-float').click(()=>$('.gpt-modal').fadeIn());
+
+$('.modal,.close').click(()=>$('.modal').fadeOut());
+$('.card').click(e=>e.stopPropagation());
+
+function addMsg(text,cls){
+  $('.gpt-messages').append('<div class="gpt-message '+cls+'">'+text+'</div>');
+  $('.gpt-messages').scrollTop(9999);
+}
+
+function autoReply(msg){
+  msg=msg.toLowerCase();
+  if(msg.includes('วิธี')) return '☕ ดื่มวันละ 1 ซอง หลังอาหารเช้า';
+  if(msg.includes('ราคา')||msg.includes('ฟรี')) return '🎁 ขณะนี้แจกฟรี (จำนวนจำกัด)';
+  if(msg.includes('อันตราย')) return '🌿 ผลิตจากสมุนไพรธรรมชาติ';
+  if(msg.includes('ส่วน')) return 'หญ้าดอกขาว ใบเตย และหญ้าหวาน';
+  if(msg.includes('รับ')) return 'กลุ่มเยาวชนพัฒวิทย์ปันชา';
+    if(msg.includes('หาย')) return 'สามารถลดการสูบบุหรี่ได้';
+    if(msg.includes('สวย')) return 'คุณมีอาการผิดปกติควรไปหาหมอ';
+
+return '😊 หากต้องการคำแนะนำละเอียด โทรหรือ LINE ได้เลยค่ะ';
+}
+
+$('.gpt-send').click(()=>{
+  let text=$('.gpt-input').val().trim();
+  if(!text) return;
+  addMsg(text,'user');
+  $('.gpt-input').val('');
+  setTimeout(()=>addMsg(autoReply(text),'bot'),600);
+});
+
+$('.gpt-input').keypress(e=>{
+  if(e.which===13) $('.gpt-send').click();
+});
+
+});
+</script>
+
+</body>
+</html>
